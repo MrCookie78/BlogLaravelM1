@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +16,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/posts', [PostController::class, 'index'])->name('postList');
+
+Route::get('/posts/ajouter', [PostController::class, 'add'])->name('postAdd');
+
+Route::post('/posts/ajouter', [PostController::class, 'store'])->name('postStore');
+
+Route::get('/posts/{id}', [PostController::class, 'detail'])->name('postDetail');
+
+Route::post('/posts/{id}/modifier', [PostController::class, 'update'])->name('postUpdate');
+
+Route::delete('/posts/{id}/supprimer', [PostController::class, 'delete'])->name('postDelete');
+
+// http://127.0.0.1:8000/posts/15
+// Liste de posts
+
+// Route::get('/posts/{id}/{opt?}', function ($id, $opt = null){
+//     dd($id, $opt);
+// });
+
+// Route::get('/posts/{id}/{opt?}', function (\Illuminate\Http\Request $request, $id, $opt){
+//     dd($request, $id, $opt);
+// });
