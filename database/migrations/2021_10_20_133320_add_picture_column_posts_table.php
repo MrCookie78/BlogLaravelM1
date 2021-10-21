@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddExtraitPostsTable extends Migration
+class AddPictureColumnPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddExtraitPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('extrait')->nullable();
+            $table->string('picture');
         });
     }
 
@@ -26,7 +26,7 @@ class AddExtraitPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('extrait');
+            $table->dropColumn('picture');
         });
     }
 }

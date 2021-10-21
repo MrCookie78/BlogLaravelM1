@@ -9,7 +9,7 @@ Le titre de ma page
 
   @include("components.navbar", ['currentPage' => 'posts'])
 
-  <div class="container-fluid mt-3">
+  <div class="container-md mt-3">
     @if($loading)
       {{$loading}}
       <p>Chargement...</p>
@@ -30,15 +30,23 @@ Le titre de ma page
           @foreach ($posts as $post)
           <div class="col-md-4 mb-3 d-flex align-items-stretch">
             <div class="card w-100">
+                <img src="{{asset("storage/".$post->picture)}}"
+                class="card-img-top"
+                style="object-fit: cover"
+                height="200"/>
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{$post->title}}</h5>
                 <p class="card-text">{{$post->extrait}}</p>
+                <p>Il y a {{$post->countComments()}} commentaire(s)</p>
+                @foreach ($post->categories as $category)
+                    <span>{{$category->name}}</span>
+                @endforeach
                 <div class="d-flex mt-auto">
                   <a class="btn btn-info" href="{{ route('postDetail', $post->id) }}">Détail</a>
                   <form method="POST" action="{{ route('postDelete', $post->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger ms-3">Supprimer</button>
+                    <button class="btn btn-danger ms-2">Supprimer</button>
                   </form>
                 </div>
               </div>
@@ -51,9 +59,9 @@ Le titre de ma page
         <p>Il n'y a aucun article.</p>
       @endif
 
-      {{-- <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         {{ $posts->links() }}
-      </div> --}}
+      </div>
 
     @endif
   </div>

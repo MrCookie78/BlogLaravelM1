@@ -7,8 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = "posts";
-    protected $fillable = ['title', 'description', 'extrait'];
+	protected $table = "posts";
+	protected $fillable = ['title', 'description', 'extrait', 'picture'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post', 'id');
+    }
+
+    public function countComments()
+    {
+        return sizeof($this->comments);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'posts-categories', 'post', 'category');
+    }
 }

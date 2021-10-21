@@ -8,7 +8,7 @@ Ajouter
 
   @include("components.navbar", ['currentPage' => 'posts'])
 
-  <div class="container-fluid mt-3">
+  <div class="container-md mt-3">
 
     <div class="container-fluid">
       <div class="row align-items-center">
@@ -32,7 +32,7 @@ Ajouter
     @endif
 
     <div class="container-md">
-      <form method="POST" class="mt-3" action="{{ route('postStore') }}">
+      <form method="POST" class="mt-3" action="{{ route('postStore') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group mt-3">
           <label>Titre</label>
@@ -45,6 +45,19 @@ Ajouter
         <div class="form-group mt-3">
           <label>Extrait</label>
           <input type="text" class="form-control" name='extrait' placeholder="Extrait de l'article" required/>
+        </div>
+        <div class="form-group mt-3">
+          <label>Image</label>
+          <input type="file" class="form-control" name='picture'/>
+        </div>
+        <div>
+            <label>Catégories de l'article</label>
+            @foreach ($categories as $category)
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="check-{{$category->id}}" name="checkboxCategories[{{$category->id}}]" value="{{$category->id}}"/>
+                    <label for="check-{{$category->id}}" class="form-check-label">{{$category->name}}</label>
+                </div>
+            @endforeach
         </div>
         <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
       </form>
